@@ -1251,48 +1251,6 @@ SUMBER
 
     </div>
 
-
-    <!-- YIN YANG -->
-
-    <div class="source">
-
-        <div class="source-label">
-
-            Pasangan Netral
-
-        </div>
-
-
-        <div
-            class="yinyang"
-            draggable="true"
-            ondragstart="dragPasanganNetral(event)"
-            ondragend="dragSelesai(event)"
-        >
-
-            <div class="yy-top"></div>
-
-            <div class="yy-bottom"></div>
-
-            <div class="plus">
-                +
-            </div>
-
-            <div class="minus">
-                −
-            </div>
-
-        </div>
-
-
-        <div style="margin-top:10px">
-
-            Nilai = 0
-
-        </div>
-
-    </div>
-
 </div>
 
 
@@ -1743,30 +1701,6 @@ function dragNeutron(event){
 
 }
 
-
-/* =========================================================
-DRAG YIN YANG
-========================================================= */
-
-function dragPasanganNetral(event){
-
-    dragData = {
-
-        type:"zero"
-
-    };
-
-
-    event.dataTransfer.effectAllowed =
-        "copy";
-
-
-    event.dataTransfer.setData(
-        "text/plain",
-        "zero"
-    );
-
-}
 
 
 /* =========================================================
