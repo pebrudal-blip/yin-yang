@@ -1603,14 +1603,11 @@ function suaraDrag(){
 ========================================================= */
 
 function suaraDelete(){
+    playTone(500, 0.08, "square", 0.10);
 
-    playTone(
-        300,
-        0.08,
-        "triangle",
-        0.07
-    );
-
+    setTimeout(() => {
+        playTone(250, 0.12, "triangle", 0.09);
+    }, 60);
 }
 
 
