@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Game Proton & Neutron - Yin Yang</title>
+<title>Game Proton & Elektron - Yin Yang</title>
 
 <style>
 
@@ -254,11 +254,11 @@ body{
 
 
 /* =========================================================
-   NEUTRON
+   ELEKTRON
    HITAM + PUTIH
 ========================================================= */
 
-.neutron-symbol{
+.elektron-symbol{
     width:70px;
     height:70px;
 
@@ -286,7 +286,7 @@ body{
         0 4px 10px rgba(0,0,0,.25);
 }
 
-.neutron-symbol:active{
+.elektron-symbol:active{
     cursor:grabbing;
     transform:scale(1.08);
 }
@@ -530,7 +530,7 @@ body{
     border:3px solid #111827;
 }
 
-.particle.neutron{
+.particle.elektron{
 
     background:#111827;
 
@@ -964,7 +964,7 @@ HEADER
     </h3>
 
     <h1>
-        Game Proton & Neutron
+        Game Proton & Elektron
     </h1>
 
     <h2>
@@ -1112,26 +1112,26 @@ PETUNJUK
         </li>
 
         <li>
-            <b>Neutron (−)</b> adalah lingkaran hitam
+            <b>Elektron (−)</b> adalah lingkaran hitam
             dengan tanda <b>−</b> putih.
         </li>
 
         <li>
-            Seret proton atau neutron
+            Seret proton atau elektron
             <b>satu per satu</b> ke papan.
         </li>
 
         <li>
             Proton bernilai <b>+1</b>,
-            neutron bernilai <b>−1</b>.
+            elektron bernilai <b>−1</b>.
         </li>
 
         <li>
-            Proton + neutron = <b>0</b>.
+            Proton + elektron = <b>0</b>.
         </li>
 
         <li>
-            Jika proton dan neutron sudah berada
+            Jika proton dan elektron sudah berada
             di papan, tekan
             <b>"Bentuk Pasangan Netral"</b>.
         </li>
@@ -1221,21 +1221,21 @@ SUMBER
     </div>
 
 
-    <!-- NEUTRON -->
+    <!-- ELEKTRON -->
 
     <div class="source">
 
         <div class="source-label">
 
-            Neutron (−)
+            Elektron (−)
 
         </div>
 
 
         <div
-            class="neutron-symbol"
+            class="elektron-symbol"
             draggable="true"
-            ondragstart="dragNeutron(event)"
+            ondragstart="dragElektron(event)"
             ondragend="dragSelesai(event)"
         >
 
@@ -1309,10 +1309,10 @@ PAPAN
 
         <div class="stat">
 
-            Neutron
+            Elektron
 
             <strong
-                id="jumlahNeutron"
+                id="jumlahElektron"
                 class="gray">
 
                 0
@@ -1439,7 +1439,7 @@ STATUS
     id="status"
     class="status info">
 
-    Silakan seret proton atau neutron
+    Silakan seret proton atau elektron
     satu per satu ke papan.
 
 </div>
@@ -1677,16 +1677,16 @@ function dragProton(event){
 
 
 /* =========================================================
-DRAG NEUTRON
+DRAG ELEKTRON
 ========================================================= */
 
-function dragNeutron(event){
+function dragElektron(event){
 
     dragData = {
 
         type:"particle",
 
-        particleType:"neutron"
+        particleType:"elektron"
 
     };
 
@@ -1697,7 +1697,7 @@ function dragNeutron(event){
 
     event.dataTransfer.setData(
         "text/plain",
-        "neutron"
+        "elektron"
     );
 
 }
@@ -1788,7 +1788,7 @@ function dropBoard(event){
 
 
     /* ==========================================
-       PROTON / NEUTRON
+       PROTON / ELEKTRON
     ========================================== */
 
     if(
@@ -1812,7 +1812,7 @@ function dropBoard(event){
             (
                 dragData.particleType === "proton"
                 ? "Proton (+1)"
-                : "Neutron (−1)"
+                : "Elektron (−1)"
             ) +
             " ditambahkan."
 
@@ -1831,7 +1831,7 @@ function dropBoard(event){
 
         /*
            Pasangan netral dimasukkan
-           sebagai proton + neutron
+           sebagai proton + elektron
            yang belum dipasangkan.
 
            Dengan demikian pasangan ini
@@ -1847,7 +1847,7 @@ function dropBoard(event){
 
 
         buatPartikel(
-            "neutron",
+            "Elektron",
             x + 48,
             y
         );
@@ -1908,10 +1908,10 @@ function bentukPasanganNetral(){
         );
 
 
-    let neutron =
+    let elektron =
         partikel.filter(
             p =>
-            p.type === "neutron" &&
+            p.type === "elektron" &&
             p.pairId === null
         );
 
@@ -1919,7 +1919,7 @@ function bentukPasanganNetral(){
     let jumlah =
         Math.min(
             proton.length,
-            neutron.length
+            elektron.length
         );
 
 
@@ -1927,7 +1927,7 @@ function bentukPasanganNetral(){
 
         setStatus(
 
-            "Belum ada proton dan neutron yang dapat dipasangkan.",
+            "Belum ada proton dan elektron yang dapat dipasangkan.",
 
             "error"
 
@@ -1952,7 +1952,7 @@ function bentukPasanganNetral(){
             proton[i];
 
         let n =
-            neutron[i];
+            elektron[i];
 
 
         let pairId =
@@ -2400,7 +2400,7 @@ function dropTrash(event){
                 (
                     target.type === "proton"
                     ? "Proton (+1)"
-                    : "Neutron (−1)"
+                    : "Elektron (−1)"
                 ) +
                 " dihapus."
 
@@ -2434,16 +2434,16 @@ function updateBoard(){
         ).length;
 
 
-    let jumlahNeutron =
+    let jumlahElektron =
         partikel.filter(
             p =>
-            p.type === "neutron"
+            p.type === "elektron"
         ).length;
 
 
     let nilai =
         jumlahProton -
-        jumlahNeutron;
+        jumlahElektron;
 
 
     document
@@ -2453,9 +2453,9 @@ function updateBoard(){
 
 
     document
-        .getElementById("jumlahNeutron")
+        .getElementById("jumlahElektron")
         .textContent =
-        jumlahNeutron;
+        jumlahElektron;
 
 
     document
@@ -2485,14 +2485,14 @@ function hitungNilaiPapan(){
         ).length;
 
 
-    let neutron =
+    let elektron =
         partikel.filter(
             p =>
-            p.type === "neutron"
+            p.type === "elektron"
         ).length;
 
 
-    return proton - neutron;
+    return proton - elektron;
 
 }
 
@@ -2577,7 +2577,7 @@ function cekJawaban(){
 
             "❌ Belum benar. Nilai papan sekarang " +
             formatNilai(nilaiPapan) +
-            ". Coba periksa kembali proton dan neutron.",
+            ". Coba periksa kembali proton dan elektron.",
 
             "error"
 
@@ -2622,7 +2622,7 @@ function soalBerikutnya(){
 
     setStatus(
 
-        "Soal baru dimulai. Pilih proton atau neutron.",
+        "Soal baru dimulai. Pilih proton atau elektron.",
 
         "info"
 
