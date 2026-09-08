@@ -8,8 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Game Proton & Elektron - Yin Yang</title>
-
+<title>Game Proton, Elektron & Netron - Yin Yang</title>
 
 <style>
 
@@ -447,6 +446,55 @@ body{
 
 
 /* =========================================================
+   NETRON
+========================================================= */
+
+.netron-symbol{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:#e5e7eb;
+
+    border:
+        4px solid
+        #111827;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#111827;
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    cursor:grab;
+
+    user-select:none;
+
+    margin:auto;
+
+    box-shadow:
+        0 4px 10px
+        rgba(0,0,0,.25);
+}
+
+.netron-symbol:active{
+
+    cursor:grabbing;
+
+    transform:scale(1.08);
+}
+
+
+/* =========================================================
    PAPAN
 ========================================================= */
 
@@ -585,6 +633,17 @@ body{
     background:#111827;
 
     color:white;
+
+    border:
+        3px solid
+        #111827;
+}
+
+.particle.netron{
+
+    background:#e5e7eb;
+
+    color:#111827;
 
     border:
         3px solid
@@ -731,7 +790,7 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(4,1fr);
+        repeat(5,1fr);
 
     gap:8px;
 
@@ -995,7 +1054,7 @@ HEADER
 </h3>
 
 <h1>
-    Game Proton & Elektron
+    Game Proton, Elektron & Netron
 </h1>
 
 <h2>
@@ -1149,7 +1208,14 @@ dengan tanda <b>−</b> putih.
 
 <li>
 
-Seret proton atau elektron
+<b>Netron (0)</b> adalah lingkaran abu-abu
+dengan tanda <b>0</b>.
+
+</li>
+
+<li>
+
+Seret proton, elektron, atau netron
 <b>satu per satu</b> ke papan.
 
 </li>
@@ -1157,7 +1223,8 @@ Seret proton atau elektron
 <li>
 
 Proton bernilai <b>+1</b>,
-sedangkan elektron bernilai <b>−1</b>.
+elektron bernilai <b>−1</b>,
+dan netron bernilai <b>0</b>.
 
 </li>
 
@@ -1184,8 +1251,16 @@ simbol <b>Yin-Yang +−</b>.
 
 <li>
 
-<b>Untuk menghapus proton atau elektron,
-cukup klik partikel tersebut di papan.</b>
+<b>Netron tidak perlu dipasangkan</b>
+dengan proton atau elektron.
+
+</li>
+
+<li>
+
+<b>Untuk menghapus proton, elektron,
+atau netron, cukup klik partikel tersebut
+di papan.</b>
 
 </li>
 
@@ -1294,6 +1369,35 @@ SUMBER
 
 </div>
 
+
+<!-- NETRON -->
+
+<div class="source">
+
+<div class="source-label">
+
+    Netron (0)
+
+</div>
+
+<div
+    class="netron-symbol"
+    draggable="true"
+    ondragstart="dragNetron(event)"
+    ondragend="dragSelesai(event)">
+
+    0
+
+</div>
+
+<div style="margin-top:10px">
+
+    Nilai = 0
+
+</div>
+
+</div>
+
 </div>
 
 
@@ -1357,6 +1461,20 @@ PAPAN
     <strong
         id="jumlahElektron"
         class="gray">
+
+        0
+
+    </strong>
+
+</div>
+
+
+<div class="stat">
+
+    Netron
+
+    <strong
+        id="jumlahNetron">
 
         0
 
@@ -1464,7 +1582,7 @@ STATUS
     id="status"
     class="status info">
 
-    Seret proton atau elektron ke papan.
+    Seret proton, elektron, atau netron ke papan.
     Untuk menghapusnya, cukup klik partikel tersebut.
 
 </div>
@@ -1495,10 +1613,6 @@ LOG
 let audioContext = null;
 
 
-/* =========================================================
-   MEMBUAT AUDIO CONTEXT
-========================================================= */
-
 function getAudioContext(){
 
     if(!audioContext){
@@ -1511,7 +1625,6 @@ function getAudioContext(){
 
     }
 
-
     if(
         audioContext.state === "suspended"
     ){
@@ -1520,15 +1633,10 @@ function getAudioContext(){
 
     }
 
-
     return audioContext;
 
 }
 
-
-/* =========================================================
-   SUARA DASAR
-========================================================= */
 
 function playTone(
     frequency,
@@ -1540,44 +1648,35 @@ function playTone(
     const ctx =
         getAudioContext();
 
-
     const oscillator =
         ctx.createOscillator();
-
 
     const gain =
         ctx.createGain();
 
-
     oscillator.type =
         type;
-
 
     oscillator.frequency.setValueAtTime(
         frequency,
         ctx.currentTime
     );
 
-
     gain.gain.setValueAtTime(
         volume,
         ctx.currentTime
     );
-
 
     gain.gain.exponentialRampToValueAtTime(
         0.001,
         ctx.currentTime + duration
     );
 
-
     oscillator.connect(gain);
 
     gain.connect(ctx.destination);
 
-
     oscillator.start();
-
 
     oscillator.stop(
         ctx.currentTime + duration
@@ -1585,10 +1684,6 @@ function playTone(
 
 }
 
-
-/* =========================================================
-   SUARA DRAG PARTIKEL
-========================================================= */
 
 function suaraDrag(){
 
@@ -1602,22 +1697,28 @@ function suaraDrag(){
 }
 
 
-/* =========================================================
-   SUARA DELETE
-========================================================= */
-
 function suaraDelete(){
-    playTone(500, 0.08, "square", 0.10);
+
+    playTone(
+        500,
+        0.08,
+        "square",
+        0.10
+    );
 
     setTimeout(() => {
-        playTone(250, 0.12, "triangle", 0.09);
-    }, 60);
+
+        playTone(
+            250,
+            0.12,
+            "triangle",
+            0.09
+        );
+
+    },60);
+
 }
 
-
-/* =========================================================
-   SUARA PASANGAN NETRAL
-========================================================= */
 
 function suaraPasangan(){
 
@@ -1627,7 +1728,6 @@ function suaraPasangan(){
         "sine",
         0.06
     );
-
 
     setTimeout(
         function(){
@@ -1646,41 +1746,59 @@ function suaraPasangan(){
 }
 
 
-/* =========================================================
-   SUARA BENAR
-========================================================= */
-
 function suaraBenar(){
-    const ucapan = new SpeechSynthesisUtterance(
-        "Benar! Jawaban kamu tepat."
-    );
 
-    ucapan.lang = "id-ID";
-    ucapan.rate = 0.95;
-    ucapan.pitch = 1.1;
-    ucapan.volume = 1;
+    const ucapan =
+        new SpeechSynthesisUtterance(
+            "Benar! Jawaban kamu tepat."
+        );
+
+    ucapan.lang =
+        "id-ID";
+
+    ucapan.rate =
+        0.95;
+
+    ucapan.pitch =
+        1.1;
+
+    ucapan.volume =
+        1;
 
     speechSynthesis.cancel();
-    speechSynthesis.speak(ucapan);
+
+    speechSynthesis.speak(
+        ucapan
+    );
+
 }
 
 
-/* =========================================================
-   SUARA SALAH
-========================================================= */
-
 function suaraSalah(){
-    const ucapan = new SpeechSynthesisUtterance(
-        "Belum tepat. Coba periksa kembali."
-    );
 
-    ucapan.lang = "id-ID";
-    ucapan.rate = 0.95;
-    ucapan.pitch = 0.9;
-    ucapan.volume = 1;
+    const ucapan =
+        new SpeechSynthesisUtterance(
+            "Belum tepat. Coba periksa kembali."
+        );
+
+    ucapan.lang =
+        "id-ID";
+
+    ucapan.rate =
+        0.95;
+
+    ucapan.pitch =
+        0.9;
+
+    ucapan.volume =
+        1;
 
     speechSynthesis.cancel();
-    speechSynthesis.speak(ucapan);
+
+    speechSynthesis.speak(
+        ucapan
+    );
+
 }
 
 
@@ -1738,7 +1856,6 @@ function pilihLevel(l){
 
     level = l;
 
-
     document
         .querySelectorAll(
             ".level-buttons button"
@@ -1748,20 +1865,17 @@ function pilihLevel(l){
             b.classList.remove("active")
         );
 
-
     document
         .getElementById(
             "level" + l
         )
         .classList.add("active");
 
-
     nomorSoal = 1;
 
     benar = 0;
 
     skor = 0;
-
 
     buatSoal();
 
@@ -1780,13 +1894,11 @@ function randomBilangan(max){
             (2 * max + 1)
         ) - max;
 
-
     if(n === 0){
 
         n = 1;
 
     }
-
 
     return n;
 
@@ -1801,24 +1913,19 @@ function buatSoal(){
 
     resetPapan(false);
 
-
     let max =
         levelMax[level];
-
 
     angkaA =
         randomBilangan(max);
 
-
     angkaB =
         randomBilangan(max);
-
 
     operator =
         Math.random() < .5
         ? "+"
         : "-";
-
 
     if(
         operator === "+"
@@ -1836,9 +1943,7 @@ function buatSoal(){
 
     }
 
-
     tampilkanSoal();
-
 
     gameSelesai = false;
 
@@ -1858,7 +1963,6 @@ function formatBilangan(n){
             ")";
 
     }
-
 
     return n;
 
@@ -1883,7 +1987,6 @@ function tampilkanSoal(){
         + " "
         + formatBilangan(angkaB);
 
-
     updateInfo();
 
 }
@@ -1903,10 +2006,8 @@ function dragProton(event){
 
     };
 
-
     event.dataTransfer.effectAllowed =
         "copy";
-
 
     event.dataTransfer.setData(
         "text/plain",
@@ -1930,14 +2031,37 @@ function dragElektron(event){
 
     };
 
-
     event.dataTransfer.effectAllowed =
         "copy";
-
 
     event.dataTransfer.setData(
         "text/plain",
         "elektron"
+    );
+
+}
+
+
+/* =========================================================
+   DRAG NETRON
+========================================================= */
+
+function dragNetron(event){
+
+    dragData = {
+
+        type:"particle",
+
+        particleType:"netron"
+
+    };
+
+    event.dataTransfer.effectAllowed =
+        "copy";
+
+    event.dataTransfer.setData(
+        "text/plain",
+        "netron"
     );
 
 }
@@ -1962,7 +2086,6 @@ function allowBoardDrop(event){
 
     event.preventDefault();
 
-
     document
         .getElementById("board")
         .classList.add("drag-over");
@@ -1978,11 +2101,9 @@ function dropBoard(event){
 
     event.preventDefault();
 
-
     document
         .getElementById("board")
         .classList.remove("drag-over");
-
 
     if(!dragData){
 
@@ -1990,28 +2111,23 @@ function dropBoard(event){
 
     }
 
-
     const board =
         document.getElementById(
             "board"
         );
 
-
     const rect =
         board.getBoundingClientRect();
-
 
     let x =
         event.clientX -
         rect.left -
         22;
 
-
     let y =
         event.clientY -
         rect.top -
         22;
-
 
     x =
         clamp(
@@ -2019,7 +2135,6 @@ function dropBoard(event){
             3,
             board.clientWidth - 47
         );
-
 
     y =
         clamp(
@@ -2044,24 +2159,26 @@ function dropBoard(event){
         );
 
 
-        /* SUARA */
-
         suaraDrag();
+
+
+        let nama =
+
+            dragData.particleType === "proton"
+
+            ? "Proton (+1)"
+
+            : dragData.particleType === "elektron"
+
+                ? "Elektron (−1)"
+
+                : "Netron (0)";
 
 
         tulisLog(
 
             "> " +
-
-            (
-                dragData.particleType === "proton"
-
-                ? "Proton (+1)"
-
-                : "Elektron (−1)"
-
-            ) +
-
+            nama +
             " ditambahkan."
 
         );
@@ -2070,7 +2187,6 @@ function dropBoard(event){
 
 
     dragData = null;
-
 
     updateBoard();
 
@@ -2167,30 +2283,23 @@ function bentukPasanganNetral(){
         let p =
             proton[i];
 
-
         let n =
             elektron[i];
-
 
         let pairId =
             ++idPasangan;
 
-
         p.pairId =
             pairId;
-
 
         n.pairId =
             pairId;
 
-
         let x =
             (p.x + n.x) / 2;
 
-
         let y =
             (p.y + n.y) / 2;
-
 
         pasangan.push({
 
@@ -2220,8 +2329,6 @@ function bentukPasanganNetral(){
 
     }
 
-
-    /* SUARA PASANGAN */
 
     suaraPasangan();
 
@@ -2270,10 +2377,6 @@ function hapusPartikel(id){
     }
 
 
-    /* ==========================================
-       JIKA BAGIAN DARI PASANGAN
-    ========================================== */
-
     if(
         target.pairId !== null
     ){
@@ -2300,8 +2403,6 @@ function hapusPartikel(id){
             );
 
 
-        /* SUARA DELETE */
-
         suaraDelete();
 
 
@@ -2318,10 +2419,6 @@ function hapusPartikel(id){
     }
 
 
-    /* ==========================================
-       PARTIKEL BIASA
-    ========================================== */
-
     else{
 
         partikel =
@@ -2333,24 +2430,26 @@ function hapusPartikel(id){
             );
 
 
-        /* SUARA DELETE */
-
         suaraDelete();
+
+
+        let nama =
+
+            target.type === "proton"
+
+            ? "Proton (+1)"
+
+            : target.type === "elektron"
+
+                ? "Elektron (−1)"
+
+                : "Netron (0)";
 
 
         tulisLog(
 
             "> " +
-
-            (
-                target.type === "proton"
-
-                ? "Proton (+1)"
-
-                : "Elektron (−1)"
-
-            ) +
-
+            nama +
             " dihapus."
 
         );
@@ -2408,8 +2507,6 @@ function hapusPasangan(id){
 
         );
 
-
-    /* SUARA DELETE */
 
     suaraDelete();
 
@@ -2502,7 +2599,6 @@ function renderBoard(){
 
                     event.stopPropagation();
 
-
                     hapusPasangan(
                         pair.id
                     );
@@ -2561,7 +2657,11 @@ function renderBoard(){
 
                 ? "+"
 
-                : "−";
+                : p.type === "elektron"
+
+                    ? "−"
+
+                    : "0";
 
 
             div.title =
@@ -2570,7 +2670,11 @@ function renderBoard(){
 
                 ? "Klik untuk menghapus proton"
 
-                : "Klik untuk menghapus elektron";
+                : p.type === "elektron"
+
+                    ? "Klik untuk menghapus elektron"
+
+                    : "Klik untuk menghapus netron";
 
 
             div.addEventListener(
@@ -2580,7 +2684,6 @@ function renderBoard(){
                 function(event){
 
                     event.stopPropagation();
-
 
                     hapusPartikel(
                         p.id
@@ -2627,6 +2730,15 @@ function updateBoard(){
         ).length;
 
 
+    let jumlahNetron =
+        partikel.filter(
+
+            p =>
+            p.type === "netron"
+
+        ).length;
+
+
     let nilai =
         jumlahProton -
         jumlahElektron;
@@ -2646,6 +2758,14 @@ function updateBoard(){
         )
         .textContent =
         jumlahElektron;
+
+
+    document
+        .getElementById(
+            "jumlahNetron"
+        )
+        .textContent =
+        jumlahNetron;
 
 
     document
@@ -2689,6 +2809,13 @@ function hitungNilaiPapan(){
 
         ).length;
 
+
+    /*
+       NETRON TIDAK MENGUBAH NILAI
+
+       Nilai =
+       proton - elektron + 0(netron)
+    */
 
     return proton - elektron;
 
@@ -2747,14 +2874,10 @@ function cekJawaban(){
 
         benar++;
 
-
         skor += 10;
-
 
         gameSelesai = true;
 
-
-        /* SUARA BENAR */
 
         suaraBenar();
 
@@ -2793,8 +2916,6 @@ function cekJawaban(){
 
 
     else{
-
-        /* SUARA SALAH */
 
         suaraSalah();
 
@@ -2852,7 +2973,7 @@ function soalBerikutnya(){
 
     setStatus(
 
-        "Soal baru dimulai. Seret proton atau elektron ke papan.",
+        "Soal baru dimulai. Seret proton, elektron, atau netron ke papan.",
 
         "info"
 
@@ -3003,7 +3124,6 @@ function formatNilai(n){
 
     }
 
-
     return n;
 
 }
@@ -3044,4 +3164,5 @@ updateBoard();
 </script>
 
 </body>
+
 </html>
