@@ -1,1566 +1,195 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Game Proton, Elektron & Netron - Yin Yang</title>
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-
-    background:
-    linear-gradient(
-        135deg,
-        #E8F4FF 0%,
-        #F3E8FF 50%,
-        #FFF7E6 100%
-    );
-
-    color:#1f2937;
-}
-
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:15px;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    background:
-    linear-gradient(
-        135deg,
-        #172554,
-        #312e81 55%,
-        #7c3aed
-    );
-
-    color:white;
-    border-radius:18px;
-    padding:22px;
-    text-align:center;
-
-    box-shadow:
-    0 8px 20px rgba(0,0,0,.18);
-}
-
-.header h3{
-    margin:0 0 8px;
-    font-size:18px;
-}
-
-.header h1{
-    margin:5px 0;
-    font-size:30px;
-}
-
-.header h2{
-    margin:5px 0 15px;
-    font-size:18px;
-    font-weight:normal;
-}
-
-.team{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
-}
-
-.team span{
-    background:rgba(255,255,255,.14);
-
-    border:
-    1px solid
-    rgba(255,255,255,.18);
-
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:13px;
-}
-
-
-/* =========================================================
-   INFO
-========================================================= */
-
-.info-bar{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin:15px 0;
-}
-
-.info{
-    background:white;
-    border-radius:12px;
-    padding:12px;
-    text-align:center;
-
-    box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
-}
-
-.info strong{
-    display:block;
-    font-size:18px;
-    margin-top:4px;
-}
-
-
-/* =========================================================
-   LEVEL
-========================================================= */
-
-.level-box{
-    background:white;
-    border-radius:15px;
-    padding:15px;
-    margin-bottom:15px;
-
-    box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
-}
-
-.level-buttons{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-top:10px;
-}
-
-.level-buttons button{
-    border:none;
-    padding:9px 18px;
-    border-radius:10px;
-    cursor:pointer;
-
-    background:#e5e7eb;
-    color:#111827;
-    font-weight:bold;
-}
-
-.level-buttons button.active{
-    background:#111827;
-    color:white;
-}
-
-
-/* =========================================================
-   PETUNJUK
-========================================================= */
-
-.instructions{
-    background:#f9fafb;
-
-    border-left:
-    6px solid
-    #111827;
-
-    border-radius:10px;
-    padding:14px;
-    margin-bottom:15px;
-    line-height:1.6;
-}
-
-.instructions summary{
-    cursor:pointer;
-    user-select:none;
-}
-
-
-/* =========================================================
-   SOAL
-========================================================= */
-
-.question{
-    background:white;
-    border-radius:12px;
-    padding:10px;
-    text-align:center;
-
-    box-shadow:
-    0 2px 6px
-    rgba(0,0,0,.08);
-
-    margin-bottom:8px;
-}
-
-.question-title{
-    font-size:14px;
-    color:#64748b;
-}
-
-.question-expression{
-    font-size:28px;
-    font-weight:bold;
-    margin:6px 0;
-    color:#111827;
-}
-
-
-/* =========================================================
-   SUMBER
-========================================================= */
-
-.source-title{
-    font-weight:bold;
-    margin-bottom:5px;
-    font-size:15px;
-}
-
-.sources{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:10px;
-}
-
-.source{
-    background:white;
-
-    border:
-    1px dashed
-    #9ca3af;
-
-    border-radius:10px;
-    padding:8px;
-    width:140px;
-    text-align:center;
-
-    box-shadow:
-    0 2px 5px
-    rgba(0,0,0,.07);
-}
-
-.source-label{
-    font-weight:bold;
-    margin-bottom:6px;
-    font-size:13px;
-}
-
-
-/* =========================================================
-   PROTON
-========================================================= */
-
-.proton-symbol{
-
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-
-    background:white;
-
-    border:
-    4px solid
-    #111827;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#111827;
-
-    font-size:42px;
-    font-weight:bold;
-
-    cursor:grab;
-    user-select:none;
-
-    margin:auto;
-
-    box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.25);
-}
-
-
-/* =========================================================
-   ELEKTRON
-========================================================= */
-
-.elektron-symbol{
-
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-
-    background:#111827;
-
-    border:
-    4px solid
-    #111827;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:white;
-
-    font-size:42px;
-    font-weight:bold;
-
-    cursor:grab;
-    user-select:none;
-
-    margin:auto;
-
-    box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.25);
-}
-
-
-/* =========================================================
-   SATU-SATUNYA BENTUK NETRON YIN-YANG
-========================================================= */
-
-.netron-symbol,
-.netron-board{
-
-    position:relative;
-
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-
-    overflow:hidden;
-
-    background:white;
-
-    border:
-    3px solid
-    #111827;
-
-    user-select:none;
-
-    box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.30);
-}
-
-
-/* NETRON DI SUMBER */
-
-.netron-symbol{
-
-    cursor:grab;
-    margin:auto;
-}
-
-
-/* NETRON DI PAPAN */
-
-.netron-board{
-
-    position:absolute;
-
-    cursor:pointer;
-
-    z-index:15;
-
-    transition:
-    transform .15s,
-    opacity .2s;
-}
-
-.netron-board:hover{
-    transform:scale(1.1);
-}
-
-
-/* =========================================================
-   BENTUK YIN-YANG
-   DIGUNAKAN OLEH SUMBER DAN PAPAN
-========================================================= */
-
-.netron-symbol .yy-black,
-.netron-board .yy-black{
-
-    position:absolute;
-
-    width:50%;
-    height:100%;
-
-    left:0;
-    top:0;
-
-    background:#111827;
-}
-
-
-.netron-symbol .yy-top,
-.netron-board .yy-top{
-
-    position:absolute;
-
-    width:50%;
-    height:50%;
-
-    left:25%;
-    top:0;
-
-    background:#111827;
-
-    border-radius:50%;
-}
-
-
-.netron-symbol .yy-bottom,
-.netron-board .yy-bottom{
-
-    position:absolute;
-
-    width:50%;
-    height:50%;
-
-    left:25%;
-    bottom:0;
-
-    background:white;
-
-    border-radius:50%;
-}
-
-
-.netron-symbol .yy-zero,
-.netron-board .yy-zero{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:
-    translate(-50%,-50%);
-
-    width:28px;
-    height:28px;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.85);
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-    color:#111827;
-
-    z-index:5;
-}
-
-
-/* =========================================================
-   PAPAN
-========================================================= */
-
-.board-wrapper{
-    margin-top:10px;
-}
-
-.board-title{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-bottom:8px;
-}
-
-.board-title strong{
-    font-size:18px;
-}
-
-.board{
-
-    height:460px;
-
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-
-    linear-gradient(
-        rgba(107,114,128,.12) 1px,
-        transparent 1px
-    ),
-
-    linear-gradient(
-        90deg,
-        rgba(107,114,128,.12) 1px,
-        transparent 1px
-    );
-
-    background-size:25px 25px;
-
-    background-color:white;
-
-    border:
-    3px solid
-    #111827;
-
-    border-radius:18px;
-
-    box-shadow:
-    inset
-    0 0 20px
-    rgba(0,0,0,.05);
-}
-
-.board.drag-over{
-
-    background-color:#f3f4f6;
-
-    border-color:#000;
-}
-
-
-/* =========================================================
-   PARTIKEL
-========================================================= */
-
-.particle{
-
-    width:44px;
-    height:44px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    font-size:27px;
-
-    font-weight:bold;
-
-    position:absolute;
-
-    cursor:pointer;
-
-    user-select:none;
-
-    box-shadow:
-    0 3px 8px
-    rgba(0,0,0,.25);
-
-    z-index:20;
-
-    transition:
-    transform .12s,
-    opacity .12s;
-}
-
-.particle:hover{
-    transform:scale(1.12);
-}
-
-.particle.proton{
-
-    background:white;
-
-    color:#111827;
-
-    border:
-    3px solid
-    #111827;
-}
-
-.particle.elektron{
-
-    background:#111827;
-
-    color:white;
-
-    border:
-    3px solid
-    #111827;
-}
-
-
-/* =========================================================
-   STATUS PAPAN
-========================================================= */
-
-.board-status{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(5,1fr);
-
-    gap:8px;
-
-    margin-top:10px;
-}
-
-.stat{
-
-    background:white;
-
-    border-radius:10px;
-
-    padding:10px;
-
-    text-align:center;
-
-    border:
-    1px solid
-    #e5e7eb;
-}
-
-.stat strong{
-
-    display:block;
-
-    font-size:20px;
-
-    margin-top:3px;
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-.controls{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:10px;
-
-    margin-top:15px;
-}
-
-button{
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:12px 18px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    font-size:14px;
-}
-
-.btn-neutral{
-
-    background:#111827;
-    color:white;
-}
-
-.btn-split{
-
-    background:#7c3aed;
-    color:white;
-}
-
-.btn-check{
-
-    background:#2563eb;
-    color:white;
-}
-
-.btn-next{
-
-    background:#4b5563;
-    color:white;
-}
-
-.btn-reset{
-
-    background:#9ca3af;
-    color:white;
-}
-
-
-/* =========================================================
-   JAWABAN
-========================================================= */
-
-.answer-box{
-
-    margin-top:15px;
-
-    background:white;
-
-    padding:18px;
-
-    border-radius:15px;
-
-    box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
-
-    text-align:center;
-}
-
-.answer-box input{
-
-    width:180px;
-
-    padding:12px;
-
-    font-size:20px;
-
-    text-align:center;
-
-    border:
-    2px solid
-    #d1d5db;
-
-    border-radius:10px;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status{
-
-    margin-top:15px;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    font-weight:bold;
-
-    text-align:center;
-
-    min-height:25px;
-}
-
-.status.info{
-
-    background:#f3f4f6;
-    color:#374151;
-}
-
-.status.success{
-
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.status.error{
-
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-
-/* =========================================================
-   LOG
-========================================================= */
-
-.log{
-
-    margin-top:15px;
-
-    background:#111827;
-
-    color:#f3f4f6;
-
-    padding:15px;
-
-    border-radius:12px;
-
-    min-height:80px;
-
-    max-height:160px;
-
-    overflow-y:auto;
-
-    font-family:monospace;
-
-    line-height:1.6;
-}
-
-
-/* =========================================================
-   ANIMASI GABUNG / PISAH
-========================================================= */
-
-@keyframes munculNetron{
-
-    0%{
-        transform:scale(.2);
-        opacity:0;
-    }
-
-    60%{
-        transform:scale(1.2);
-        opacity:1;
-    }
-
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-}
-
-.netron-board.animasi-muncul{
-
-    animation:
-    munculNetron .35s ease-out;
-}
-
-
-@keyframes munculPartikel{
-
-    0%{
-        transform:scale(.2);
-        opacity:0;
-    }
-
-    70%{
-        transform:scale(1.15);
-        opacity:1;
-    }
-
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-}
-
-.particle.animasi-muncul{
-
-    animation:
-    munculPartikel .35s ease-out;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(max-width:700px){
-
-    .info-bar{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
-    }
-
-    .board-status{
-
-        grid-template-columns:
-        repeat(2,1fr);
-
-    }
-
-    .board{
-
-        height:500px;
-
-    }
-
-    .board-title{
-
-        align-items:flex-start;
-
-    }
-
-    .board-title button{
-
-        margin-top:5px;
-
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-<div class="container">
-
-
-<!-- =====================================================
-HEADER
-===================================================== -->
-
-<div class="header">
-
-<h3>
-KEGIATAN PENGABDIAN KEPADA MASYARAKAT
-</h3>
-
-<h1>
-Game Proton, Elektron & Netron
-</h1>
-
-<h2>
-Matematika Tanpa Hafalan: Penanaman Konsep Perkalian
-Melalui Permainan Edukatif bagi Siswa Sekolah Gugus II Payakumbuh
-</h2>
-
-<div class="team">
-
-<span>Pebrudal Zanu</span>
-<span>Helma</span>
-<span>Dewi Murni</span>
-<span>Muhammad Subhan</span>
-<span>Riry Sriningsih</span>
-<span>Yoli Agnesia</span>
-<span>Media Rosha</span>
-<span>Meira Parma Dewi</span>
-<span>Ayuni Kemala Safira</span>
-<span>Yusmet Rizal</span>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-INFO
-===================================================== -->
-
-<div class="info-bar">
-
-<div class="info">
-Level
-<strong id="infoLevel">1</strong>
-</div>
-
-<div class="info">
-Soal
-<strong id="infoSoal">1</strong>
-</div>
-
-<div class="info">
-Benar
-<strong id="infoBenar">0</strong>
-</div>
-
-<div class="info">
-Skor
-<strong id="infoSkor">0</strong>
-</div>
-
-</div>
-
-
-<!-- =====================================================
-LEVEL
-===================================================== -->
-
-<div class="level-box">
-
-<strong>
-Pilih Level
-</strong>
-
-<div class="level-buttons">
-
-<button
-onclick="pilihLevel(1)"
-id="level1"
-class="active">
-Level 1
-</button>
-
-<button
-onclick="pilihLevel(2)"
-id="level2">
-Level 2
-</button>
-
-<button
-onclick="pilihLevel(3)"
-id="level3">
-Level 3
-</button>
-
-<button
-onclick="pilihLevel(4)"
-id="level4">
-Level 4
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-PETUNJUK
-===================================================== -->
-
-<details class="instructions">
-
-<summary>
-🧠 <strong>Cara Bermain</strong>
-</summary>
-
-<ol>
-
-<li>
-<b>Proton (+)</b> bernilai +1.
-</li>
-
-<li>
-<b>Elektron (−)</b> bernilai −1.
-</li>
-
-<li>
-<b>Netron (☯)</b> bernilai 0.
-</li>
-
-<li>
-Seret proton, elektron, atau netron ke papan.
-</li>
-
-<li>
-Proton dan elektron yang berlawanan
-dapat digabungkan menjadi satu netron.
-</li>
-
-<li>
-Netron dapat dipisahkan kembali
-menjadi satu proton dan satu elektron.
-</li>
-
-<li>
-Netron yang berasal dari sumber maupun
-netron hasil penggabungan dapat dipisahkan.
-</li>
-
-<li>
-Setelah dipisahkan, proton dan elektron
-dapat digabungkan kembali menjadi netron.
-</li>
-
-<li>
-Klik proton, elektron, atau netron
-untuk menghapusnya.
-</li>
-
-</ol>
-
-</details>
-
-
-<!-- =====================================================
-SOAL
-===================================================== -->
-
-<div class="question">
-
-<div class="question-title">
-Selesaikan operasi berikut:
-</div>
-
-<div
-class="question-expression"
-id="question">
-
-−3 − (−5)
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-SUMBER
-===================================================== -->
-
-<div class="source-title">
-⚛️ Pilih Partikel
-</div>
-
-<div class="sources">
-
-
-<!-- PROTON -->
-
-<div class="source">
-
-<div class="source-label">
-Proton (+)
-</div>
-
-<div
-class="proton-symbol"
-draggable="true"
-ondragstart="dragProton(event)"
-ondragend="dragSelesai(event)">
-
-+
-
-</div>
-
-<div style="margin-top:10px">
-Nilai = +1
-</div>
-
-</div>
-
-
-<!-- ELEKTRON -->
-
-<div class="source">
-
-<div class="source-label">
-Elektron (−)
-</div>
-
-<div
-class="elektron-symbol"
-draggable="true"
-ondragstart="dragElektron(event)"
-ondragend="dragSelesai(event)">
-
-−
-
-</div>
-
-<div style="margin-top:10px">
-Nilai = −1
-</div>
-
-</div>
-
-
-<!-- NETRON -->
-
-<div class="source">
-
-<div class="source-label">
-Netron (☯)
-</div>
-
-<div
-class="netron-symbol"
-draggable="true"
-ondragstart="dragNetron(event)"
-ondragend="dragSelesai(event)">
-
-<div class="yy-black"></div>
-<div class="yy-top"></div>
-<div class="yy-bottom"></div>
-
-<div class="yy-zero">
-0
-</div>
-
-</div>
-
-<div style="margin-top:10px">
-Nilai = 0
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-PAPAN
-===================================================== -->
-
-<div class="board-wrapper">
-
-<div class="board-title">
-
-<strong>
-🧪 Papan Partikel
-</strong>
-
-<div>
-
-<button
-class="btn-neutral"
-onclick="bentukPasanganNetral()">
-
-⚛️ Gabungkan Proton + Elektron
-
-</button>
-
-<button
-class="btn-split"
-onclick="pisahkanNetron()">
-
-☯️ Pisahkan Netron
-
-</button>
-
-</div>
-
-</div>
-
-
-<div
-id="board"
-class="board"
-ondragover="allowBoardDrop(event)"
-ondrop="dropBoard(event)">
-
-</div>
-
-
-<div class="board-status">
-
-<div class="stat">
-
-Proton
-
-<strong id="jumlahProton">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-Elektron
-
-<strong id="jumlahElektron">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-Netron
-
-<strong id="jumlahNetron">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-Pasangan Netral
-
-<strong id="jumlahPasangan">
-0
-</strong>
-
-</div>
-
-
-<div class="stat">
-
-Nilai Papan
-
-<strong id="nilaiPapan">
-0
-</strong>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-JAWABAN
-===================================================== -->
-
-<div class="answer-box">
-
-<strong>
-Masukkan Jawaban
-</strong>
-
-<br><br>
-
-<input
-type="text"
-id="answer"
-inputmode="numeric"
-pattern="-?[0-9]*"
-placeholder="Jawaban"
-autocomplete="off">
-
-
-<div class="controls">
-
-<button
-class="btn-check"
-onclick="cekJawaban()">
-
-✓ Cek Jawaban
-
-</button>
-
-
-<button
-class="btn-next"
-onclick="soalBerikutnya()">
-
-➜ Soal Berikutnya
-
-</button>
-
-
-<button
-class="btn-reset"
-onclick="resetPapan()">
-
-↻ Reset Papan
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- =====================================================
-STATUS
-===================================================== -->
-
-<div
-id="status"
-class="status info">
-
-Seret proton, elektron, atau netron ke papan.
-
-</div>
-
-
-<!-- =====================================================
-LOG
-===================================================== -->
-
-<div
-id="log"
-class="log">
-
-&gt; Game dimulai...
-
-</div>
-
-</div>
-
-
 <script>
 
-
 /* =========================================================
-   AUDIO
+   SISTEM SUARA / PELAFALAN BAHASA INDONESIA
 ========================================================= */
 
-let audioContext=null;
+function suaraLafal(teks){
+
+    if(!("speechSynthesis" in window)){
+        console.warn(
+            "Browser tidak mendukung pelafalan suara."
+        );
+        return;
+    }
+
+    /*
+       Hentikan suara sebelumnya
+       supaya suara tidak bertumpuk.
+    */
+    window.speechSynthesis.cancel();
+
+    const suara =
+        new SpeechSynthesisUtterance(teks);
+
+    suara.lang = "id-ID";
+
+    /*
+       Kecepatan dibuat sedikit lebih lambat
+       agar cocok untuk siswa.
+    */
+    suara.rate = 0.88;
+
+    suara.pitch = 1;
+
+    suara.volume = 1;
+
+    window.speechSynthesis.speak(suara);
+}
 
 
-function getAudioContext(){
+/* =========================================================
+   SUARA AKSI
+========================================================= */
 
-    if(!audioContext){
+function suaraTambahProton(){
 
-        audioContext=
-        new(
-            window.AudioContext ||
-            window.webkitAudioContext
-        )();
+    suaraLafal(
+        "Proton positif satu ditambahkan ke papan."
+    );
+
+}
+
+
+function suaraTambahElektron(){
+
+    suaraLafal(
+        "Elektron negatif satu ditambahkan ke papan."
+    );
+
+}
+
+
+function suaraTambahNetron(){
+
+    suaraLafal(
+        "Netron, nilainya nol, ditambahkan ke papan."
+    );
+
+}
+
+
+function suaraDelete(type){
+
+    if(type==="proton"){
+
+        suaraLafal(
+            "Proton positif satu dihapus dari papan."
+        );
 
     }
 
-    if(
-        audioContext.state==="suspended"
-    ){
+    else if(type==="elektron"){
 
-        audioContext.resume();
+        suaraLafal(
+            "Elektron negatif satu dihapus dari papan."
+        );
 
     }
 
-    return audioContext;
+    else if(type==="netron"){
+
+        suaraLafal(
+            "Netron, nilainya nol, dihapus dari papan."
+        );
+
+    }
 
 }
 
 
-function playTone(
-frequency,
-duration,
-type="sine",
-volume=.08
-){
+function suaraPasangan(jumlah){
 
-    const ctx=
-    getAudioContext();
+    if(jumlah===1){
 
-    const oscillator=
-    ctx.createOscillator();
+        suaraLafal(
+            "Satu proton positif satu dan satu elektron negatif satu membentuk satu pasangan netral. Nilainya nol."
+        );
 
-    const gain=
-    ctx.createGain();
+    }
 
-    oscillator.type=type;
+    else{
 
-    oscillator.frequency.setValueAtTime(
-        frequency,
-        ctx.currentTime
-    );
+        suaraLafal(
+            jumlah+
+            " proton dan "+
+            jumlah+
+            " elektron membentuk "+
+            jumlah+
+            " pasangan netral. Nilainya nol."
+        );
 
-    gain.gain.setValueAtTime(
-        volume,
-        ctx.currentTime
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-        .001,
-        ctx.currentTime+duration
-    );
-
-    oscillator.connect(gain);
-
-    gain.connect(ctx.destination);
-
-    oscillator.start();
-
-    oscillator.stop(
-        ctx.currentTime+duration
-    );
+    }
 
 }
 
 
-function suaraDrag(){
+function suaraPisah(jumlah){
 
-    playTone(
-        650,
-        .10,
-        "sine",
-        .07
-    );
+    if(jumlah===1){
+
+        suaraLafal(
+            "Satu netron dipisahkan menjadi satu proton positif satu dan satu elektron negatif satu."
+        );
+
+    }
+
+    else{
+
+        suaraLafal(
+            jumlah+
+            " netron dipisahkan menjadi "+
+            jumlah+
+            " proton dan "+
+            jumlah+
+            " elektron."
+        );
+
+    }
 
 }
 
 
-function suaraDelete(){
+function suaraBenar(){
 
-    playTone(
-        500,
-        .08,
-        "square",
-        .10
-    );
-
-    setTimeout(
-        ()=>{
-
-            playTone(
-                250,
-                .12,
-                "triangle",
-                .09
-            );
-
-        },
-        60
+    suaraLafal(
+        "Jawaban benar! Hebat!"
     );
 
 }
 
 
-function suaraPasangan(){
+function suaraSalah(){
 
-    playTone(
-        600,
-        .10,
-        "sine",
-        .06
-    );
-
-    setTimeout(
-        ()=>{
-
-            playTone(
-                850,
-                .15,
-                "sine",
-                .06
-            );
-
-        },
-        80
+    suaraLafal(
+        "Jawaban salah. Coba periksa kembali susunan proton dan elektronnya."
     );
 
 }
 
 
-function suaraPisah(){
+function suaraBelumJawab(){
 
-    playTone(
-        850,
-        .10,
-        "sine",
-        .07
+    suaraLafal(
+        "Masukkan jawaban terlebih dahulu."
     );
 
-    setTimeout(
-        ()=>{
+}
 
-            playTone(
-                600,
-                .10,
-                "sine",
-                .07
-            );
 
-        },
-        100
+function suaraSoalBerikutnya(){
+
+    suaraLafal(
+        "Soal berikutnya."
+    );
+
+}
+
+
+function suaraReset(){
+
+    suaraLafal(
+        "Papan telah dikosongkan."
     );
 
 }
@@ -1595,6 +224,10 @@ let dragData=null;
 let gameSelesai=false;
 
 
+/* =========================================================
+   LEVEL
+========================================================= */
+
 const levelMax={
 
     1:5,
@@ -1609,7 +242,7 @@ const levelMax={
 
 
 /* =========================================================
-   LEVEL
+   PILIH LEVEL
 ========================================================= */
 
 function pilihLevel(l){
@@ -1639,11 +272,15 @@ function pilihLevel(l){
 
     buatSoal();
 
+    suaraLafal(
+        "Level "+level+"."
+    );
+
 }
 
 
 /* =========================================================
-   RANDOM
+   RANDOM BILANGAN
 ========================================================= */
 
 function randomBilangan(max){
@@ -1652,6 +289,10 @@ function randomBilangan(max){
     Math.floor(
         Math.random()*(2*max+1)
     )-max;
+
+    /*
+       Hindari angka nol
+    */
 
     if(n===0){
         n=1;
@@ -1663,7 +304,7 @@ function randomBilangan(max){
 
 
 /* =========================================================
-   SOAL
+   BUAT SOAL
 ========================================================= */
 
 function buatSoal(){
@@ -1693,12 +334,17 @@ function buatSoal(){
 }
 
 
+/* =========================================================
+   FORMAT BILANGAN
+========================================================= */
+
 function formatBilangan(n){
 
     if(n<0){
 
         return "(−"+
-        Math.abs(n)+")";
+        Math.abs(n)+
+        ")";
 
     }
 
@@ -1706,6 +352,10 @@ function formatBilangan(n){
 
 }
 
+
+/* =========================================================
+   TAMPILKAN SOAL
+========================================================= */
 
 function tampilkanSoal(){
 
@@ -1725,7 +375,7 @@ function tampilkanSoal(){
 
 
 /* =========================================================
-   DRAG
+   DRAG PROTON
 ========================================================= */
 
 function dragProton(event){
@@ -1748,6 +398,10 @@ function dragProton(event){
 }
 
 
+/* =========================================================
+   DRAG ELEKTRON
+========================================================= */
+
 function dragElektron(event){
 
     dragData={
@@ -1768,6 +422,10 @@ function dragElektron(event){
 }
 
 
+/* =========================================================
+   DRAG NETRON
+========================================================= */
+
 function dragNetron(event){
 
     dragData={
@@ -1786,6 +444,10 @@ function dragNetron(event){
 }
 
 
+/* =========================================================
+   SELESAI DRAG
+========================================================= */
+
 function dragSelesai(){
 
     dragData=null;
@@ -1794,7 +456,7 @@ function dragSelesai(){
 
 
 /* =========================================================
-   DROP
+   ALLOW DROP
 ========================================================= */
 
 function allowBoardDrop(event){
@@ -1808,6 +470,10 @@ function allowBoardDrop(event){
 }
 
 
+/* =========================================================
+   DROP KE PAPAN
+========================================================= */
+
 function dropBoard(event){
 
     event.preventDefault();
@@ -1816,11 +482,9 @@ function dropBoard(event){
     .getElementById("board")
     .classList.remove("drag-over");
 
-
     if(!dragData){
         return;
     }
-
 
     const board=
     document.getElementById("board");
@@ -1828,25 +492,21 @@ function dropBoard(event){
     const rect=
     board.getBoundingClientRect();
 
-
     let x=
     event.clientX-
     rect.left-
     22;
-
 
     let y=
     event.clientY-
     rect.top-
     22;
 
-
     x=clamp(
         x,
         3,
         board.clientWidth-47
     );
-
 
     y=clamp(
         y,
@@ -1869,19 +529,37 @@ function dropBoard(event){
             y
         );
 
-        suaraDrag();
+        if(
+            dragData.particleType==="proton"
+        ){
 
+            suaraTambahProton();
 
-        let nama=
-        dragData.particleType==="proton"
-        ? "Proton (+1)"
-        : "Elektron (−1)";
+            tulisLog(
+                "> Proton (+1) ditambahkan."
+            );
 
+            setStatus(
+                "Proton (+1) ditambahkan ke papan.",
+                "info"
+            );
 
-        tulisLog(
-            "> "+nama+
-            " ditambahkan."
-        );
+        }
+
+        else{
+
+            suaraTambahElektron();
+
+            tulisLog(
+                "> Elektron (−1) ditambahkan."
+            );
+
+            setStatus(
+                "Elektron (−1) ditambahkan ke papan.",
+                "info"
+            );
+
+        }
 
     }
 
@@ -1900,11 +578,15 @@ function dropBoard(event){
             "langsung"
         );
 
-        suaraDrag();
-
+        suaraTambahNetron();
 
         tulisLog(
             "> Netron Yin-Yang (0) ditambahkan."
+        );
+
+        setStatus(
+            "Netron (0) ditambahkan ke papan.",
+            "info"
         );
 
     }
@@ -1922,9 +604,9 @@ function dropBoard(event){
 ========================================================= */
 
 function buatPartikel(
-type,
-x,
-y
+    type,
+    x,
+    y
 ){
 
     partikel.push({
@@ -1935,7 +617,9 @@ y
 
         x:x,
 
-        y:y
+        y:y,
+
+        animasi:true
 
     });
 
@@ -1944,12 +628,14 @@ y
 
 /* =========================================================
    BUAT NETRON
+   NETRON SUMBER DAN NETRON GABUNGAN
+   MENGGUNAKAN TYPE YANG SAMA
 ========================================================= */
 
 function buatNetron(
-x,
-y,
-asal="langsung"
+    x,
+    y,
+    asal="langsung"
 ){
 
     partikel.push({
@@ -1962,7 +648,9 @@ asal="langsung"
 
         y:y,
 
-        asal:asal
+        asal:asal,
+
+        animasi:true
 
     });
 
@@ -1982,13 +670,11 @@ function bentukPasanganNetral(){
         p.type==="proton"
     );
 
-
     let elektron=
     partikel.filter(
         p=>
         p.type==="elektron"
     );
-
 
     let jumlah=
     Math.min(
@@ -2004,6 +690,10 @@ function bentukPasanganNetral(){
             "error"
         );
 
+        suaraLafal(
+            "Belum ada proton dan elektron yang dapat digabungkan."
+        );
+
         return;
 
     }
@@ -2014,7 +704,7 @@ function bentukPasanganNetral(){
 
 
     /*
-       Simpan pasangan yang akan digabung.
+       Simpan pasangan
     */
 
     let pasanganGabung=[];
@@ -2067,7 +757,7 @@ function bentukPasanganNetral(){
 
 
     /*
-       Buat netron baru pada posisi tengah
+       Bentuk netron pada posisi tengah
     */
 
     pasanganGabung.forEach(
@@ -2078,7 +768,6 @@ function bentukPasanganNetral(){
                 pasangan.proton.x+
                 pasangan.elektron.x
             )/2;
-
 
             let y=
             (
@@ -2109,8 +798,16 @@ function bentukPasanganNetral(){
     );
 
 
-    suaraPasangan();
+    /*
+       SUARA
+    */
 
+    suaraPasangan(jumlah);
+
+
+    /*
+       LOG
+    */
 
     tulisLog(
         "> "+
@@ -2122,6 +819,10 @@ function bentukPasanganNetral(){
         " netron."
     );
 
+
+    /*
+       STATUS
+    */
 
     setStatus(
 
@@ -2160,6 +861,10 @@ function pisahkanNetron(){
             "error"
         );
 
+        suaraLafal(
+            "Belum ada netron yang dapat dipisahkan."
+        );
+
         return;
 
     }
@@ -2174,7 +879,7 @@ function pisahkanNetron(){
 
 
     /*
-       Simpan posisi netron.
+       Simpan posisi semua netron
     */
 
     let posisiNetron=
@@ -2190,7 +895,7 @@ function pisahkanNetron(){
 
 
     /*
-       Hapus netron.
+       Hapus semua netron
     */
 
     partikel=
@@ -2201,18 +906,18 @@ function pisahkanNetron(){
 
 
     /*
-       Setiap netron menjadi:
+       Setiap netron:
        
-       ☯ 0
-        ↓
-       +1   −1
+             ☯
+             ↓
+        +1       −1
     */
 
     posisiNetron.forEach(
         n=>{
 
             /*
-               Proton kiri
+               Proton
             */
 
             buatPartikel(
@@ -2235,7 +940,7 @@ function pisahkanNetron(){
 
 
             /*
-               Elektron kanan
+               Elektron
             */
 
             buatPartikel(
@@ -2260,8 +965,16 @@ function pisahkanNetron(){
     );
 
 
-    suaraPisah();
+    /*
+       SUARA
+    */
 
+    suaraPisah(jumlah);
+
+
+    /*
+       LOG
+    */
 
     tulisLog(
 
@@ -2275,6 +988,10 @@ function pisahkanNetron(){
 
     );
 
+
+    /*
+       STATUS
+    */
 
     setStatus(
 
@@ -2293,6 +1010,7 @@ function pisahkanNetron(){
 
 /* =========================================================
    HAPUS PARTIKEL
+   CUKUP KLIK PADA PARTIKEL
 ========================================================= */
 
 function hapusPartikel(id){
@@ -2316,7 +1034,9 @@ function hapusPartikel(id){
     );
 
 
-    suaraDelete();
+    suaraDelete(
+        target.type
+    );
 
 
     let nama=
@@ -2348,6 +1068,19 @@ function hapusPartikel(id){
 
 function hapusNetron(id){
 
+    let target=
+    partikel.find(
+        p=>
+        p.id===id &&
+        p.type==="netron"
+    );
+
+
+    if(!target){
+        return;
+    }
+
+
     partikel=
     partikel.filter(
         p=>
@@ -2355,7 +1088,9 @@ function hapusNetron(id){
     );
 
 
-    suaraDelete();
+    suaraDelete(
+        "netron"
+    );
 
 
     tulisLog(
@@ -2387,9 +1122,9 @@ function renderBoard(){
     board.innerHTML="";
 
 
-    /*
+    /* =====================================================
        NETRON
-    */
+    ===================================================== */
 
     partikel
     .filter(
@@ -2402,6 +1137,11 @@ function renderBoard(){
             let div=
             document.createElement("div");
 
+
+            /*
+               BENTUK NETRON SELALU SAMA
+               baik dari sumber maupun hasil gabungan
+            */
 
             div.className=
             "netron-board";
@@ -2430,6 +1170,32 @@ function renderBoard(){
             `;
 
 
+            /*
+               Animasi netron baru
+            */
+
+            if(n.animasi){
+
+                div.classList.add(
+                    "animasi-muncul"
+                );
+
+                /*
+                   Supaya animasi tidak terus berjalan
+                */
+
+                setTimeout(
+                    ()=>{
+
+                        n.animasi=false;
+
+                    },
+                    400
+                );
+
+            }
+
+
             div.title=
             "Netron (0) — klik untuk menghapus";
 
@@ -2440,7 +1206,9 @@ function renderBoard(){
 
                     event.stopPropagation();
 
-                    hapusNetron(n.id);
+                    hapusNetron(
+                        n.id
+                    );
 
                 }
             );
@@ -2452,9 +1220,9 @@ function renderBoard(){
     );
 
 
-    /*
+    /* =====================================================
        PROTON DAN ELEKTRON
-    */
+    ===================================================== */
 
     partikel.forEach(
         p=>{
@@ -2487,6 +1255,28 @@ function renderBoard(){
             p.type==="proton"
             ? "+"
             : "−";
+
+
+            /*
+               Animasi partikel baru
+            */
+
+            if(p.animasi){
+
+                div.classList.add(
+                    "animasi-muncul"
+                );
+
+                setTimeout(
+                    ()=>{
+
+                        p.animasi=false;
+
+                    },
+                    400
+                );
+
+            }
 
 
             div.title=
@@ -2548,13 +1338,11 @@ function updateBoard(){
 
 
     /*
-       Netron bernilai 0.
+       Nilai:
        
-       Nilai papan hanya berasal dari:
-       
-       proton = +1
-       elektron = -1
-       netron = 0
+       Proton   = +1
+       Elektron = -1
+       Netron   =  0
     */
 
     let nilai=
@@ -2587,8 +1375,8 @@ function updateBoard(){
 
 
     /*
-       Pasangan netral sekarang
-       direpresentasikan sebagai netron.
+       Pasangan netral direpresentasikan
+       oleh netron.
     */
 
     document
@@ -2610,7 +1398,7 @@ function updateBoard(){
 
 
 /* =========================================================
-   NILAI PAPAN
+   HITUNG NILAI PAPAN
 ========================================================= */
 
 function hitungNilaiPapan(){
@@ -2628,10 +1416,6 @@ function hitungNilaiPapan(){
         p.type==="elektron"
     ).length;
 
-
-    /*
-       Netron bernilai 0.
-    */
 
     return proton-elektron;
 
@@ -2662,6 +1446,8 @@ function cekJawaban(){
             "error"
         );
 
+        suaraBelumJawab();
+
         return;
 
     }
@@ -2674,6 +1460,13 @@ function cekJawaban(){
     let nilaiPapan=
     hitungNilaiPapan();
 
+
+    /*
+       Jawaban harus:
+       
+       1. sama dengan jawaban matematika
+       2. sama dengan nilai yang dibuat di papan
+    */
 
     if(
         nilaiPapan===jawabanBenar &&
@@ -2708,6 +1501,13 @@ function cekJawaban(){
         );
 
 
+        /*
+           SUARA BENAR
+        */
+
+        suaraBenar();
+
+
         updateInfo();
 
     }
@@ -2723,6 +1523,13 @@ function cekJawaban(){
             "error"
 
         );
+
+
+        /*
+           SUARA SALAH
+        */
+
+        suaraSalah();
 
     }
 
@@ -2740,6 +1547,10 @@ function soalBerikutnya(){
         setStatus(
             "Selesaikan soal ini terlebih dahulu.",
             "error"
+        );
+
+        suaraLafal(
+            "Selesaikan soal ini terlebih dahulu."
         );
 
         return;
@@ -2770,15 +1581,18 @@ function soalBerikutnya(){
         "> Soal berikutnya."
     );
 
+
+    suaraSoalBerikutnya();
+
 }
 
 
 /* =========================================================
-   RESET
+   RESET PAPAN
 ========================================================= */
 
 function resetPapan(
-tampilkanStatus=true
+    tampilkanStatus=true
 ){
 
     partikel=[];
@@ -2801,13 +1615,16 @@ tampilkanStatus=true
             "> Papan di-reset."
         );
 
+
+        suaraReset();
+
     }
 
 }
 
 
 /* =========================================================
-   INFO
+   UPDATE INFO
 ========================================================= */
 
 function updateInfo(){
@@ -2851,8 +1668,8 @@ function updateInfo(){
 ========================================================= */
 
 function setStatus(
-text,
-type
+    text,
+    type
 ){
 
     let status=
@@ -2894,13 +1711,15 @@ function tulisLog(text){
 
 
 /* =========================================================
-   FORMAT
+   FORMAT NILAI
 ========================================================= */
 
 function formatNilai(n){
 
     if(n>0){
+
         return "+"+n;
+
     }
 
     return n;
@@ -2913,9 +1732,9 @@ function formatNilai(n){
 ========================================================= */
 
 function clamp(
-value,
-min,
-max
+    value,
+    min,
+    max
 ){
 
     return Math.max(
@@ -2930,7 +1749,7 @@ max
 
 
 /* =========================================================
-   MULAI
+   MULAI GAME
 ========================================================= */
 
 buatSoal();
@@ -2938,6 +1757,3 @@ buatSoal();
 updateBoard();
 
 </script>
-
-</body>
-</html>
