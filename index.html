@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 
@@ -333,7 +334,7 @@ body{
 
 
 /* =========================================================
-   SATU-SATUNYA BENTUK NETRON YIN-YANG
+   NETRON
 ========================================================= */
 
 .netron-symbol,
@@ -361,17 +362,11 @@ body{
     rgba(0,0,0,.30);
 }
 
-
-/* NETRON DI SUMBER */
-
 .netron-symbol{
 
     cursor:grab;
     margin:auto;
 }
-
-
-/* NETRON DI PAPAN */
 
 .netron-board{
 
@@ -392,8 +387,7 @@ body{
 
 
 /* =========================================================
-   BENTUK YIN-YANG
-   DIGUNAKAN OLEH SUMBER DAN PAPAN
+   YIN-YANG NETRON
 ========================================================= */
 
 .netron-symbol .yy-black,
@@ -822,7 +816,7 @@ button{
 
 
 /* =========================================================
-   ANIMASI GABUNG / PISAH
+   ANIMASI
 ========================================================= */
 
 @keyframes munculNetron{
@@ -1476,6 +1470,10 @@ volume=.08
 }
 
 
+/* =========================================================
+   SUARA EFEK
+========================================================= */
+
 function suaraDrag(){
 
     playTone(
@@ -1561,6 +1559,103 @@ function suaraPisah(){
 
         },
         100
+    );
+
+}
+
+
+/* =========================================================
+   SUARA PELAFALAN BENAR / SALAH
+========================================================= */
+
+function suaraUcapan(teks){
+
+    /*
+       Pastikan browser mendukung
+       Web Speech API.
+    */
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+        return;
+    }
+
+
+    /*
+       Hentikan ucapan sebelumnya
+       agar tidak bertumpuk.
+    */
+
+    window.speechSynthesis.cancel();
+
+
+    const ucapan=
+    new SpeechSynthesisUtterance(
+        teks
+    );
+
+
+    /*
+       Bahasa Indonesia
+    */
+
+    ucapan.lang="id-ID";
+
+
+    /*
+       Kecepatan bicara
+    */
+
+    ucapan.rate=0.9;
+
+
+    /*
+       Tinggi rendah suara
+    */
+
+    ucapan.pitch=1.05;
+
+
+    /*
+       Volume maksimum
+    */
+
+    ucapan.volume=1;
+
+
+    /*
+       Jalankan pelafalan
+    */
+
+    window.speechSynthesis.speak(
+        ucapan
+    );
+
+}
+
+
+/* =========================================================
+   SUARA BENAR
+========================================================= */
+
+function suaraBenar(){
+
+    suaraUcapan(
+        "Benar! Jawaban kamu tepat."
+    );
+
+}
+
+
+/* =========================================================
+   SUARA SALAH
+========================================================= */
+
+function suaraSalah(){
+
+    suaraUcapan(
+        "Belum benar. Coba periksa kembali."
     );
 
 }
@@ -1855,10 +1950,6 @@ function dropBoard(event){
     );
 
 
-    /* =====================================================
-       PROTON / ELEKTRON
-    ===================================================== */
-
     if(
         dragData.type==="particle"
     ){
@@ -1885,10 +1976,6 @@ function dropBoard(event){
 
     }
 
-
-    /* =====================================================
-       NETRON
-    ===================================================== */
 
     else if(
         dragData.type==="netron"
@@ -1971,7 +2058,6 @@ asal="langsung"
 
 /* =========================================================
    GABUNGKAN PROTON + ELEKTRON
-   MENJADI NETRON
 ========================================================= */
 
 function bentukPasanganNetral(){
@@ -2013,10 +2099,6 @@ function bentukPasanganNetral(){
     document.getElementById("board");
 
 
-    /*
-       Simpan pasangan yang akan digabung.
-    */
-
     let pasanganGabung=[];
 
 
@@ -2036,10 +2118,6 @@ function bentukPasanganNetral(){
 
     }
 
-
-    /*
-       Hapus proton dan elektron
-    */
 
     let idYangDihapus=[];
 
@@ -2065,10 +2143,6 @@ function bentukPasanganNetral(){
         !idYangDihapus.includes(p.id)
     );
 
-
-    /*
-       Buat netron baru pada posisi tengah
-    */
 
     pasanganGabung.forEach(
         pasangan=>{
@@ -2173,10 +2247,6 @@ function pisahkanNetron(){
     netron.length;
 
 
-    /*
-       Simpan posisi netron.
-    */
-
     let posisiNetron=
     netron.map(
         n=>({
@@ -2189,10 +2259,6 @@ function pisahkanNetron(){
     );
 
 
-    /*
-       Hapus netron.
-    */
-
     partikel=
     partikel.filter(
         p=>
@@ -2200,20 +2266,8 @@ function pisahkanNetron(){
     );
 
 
-    /*
-       Setiap netron menjadi:
-       
-       ☯ 0
-        ↓
-       +1   −1
-    */
-
     posisiNetron.forEach(
         n=>{
-
-            /*
-               Proton kiri
-            */
 
             buatPartikel(
 
@@ -2233,10 +2287,6 @@ function pisahkanNetron(){
 
             );
 
-
-            /*
-               Elektron kanan
-            */
 
             buatPartikel(
 
@@ -2387,10 +2437,6 @@ function renderBoard(){
     board.innerHTML="";
 
 
-    /*
-       NETRON
-    */
-
     partikel
     .filter(
         p=>
@@ -2451,10 +2497,6 @@ function renderBoard(){
         }
     );
 
-
-    /*
-       PROTON DAN ELEKTRON
-    */
 
     partikel.forEach(
         p=>{
@@ -2547,16 +2589,6 @@ function updateBoard(){
     ).length;
 
 
-    /*
-       Netron bernilai 0.
-       
-       Nilai papan hanya berasal dari:
-       
-       proton = +1
-       elektron = -1
-       netron = 0
-    */
-
     let nilai=
     jumlahProton-
     jumlahElektron;
@@ -2585,11 +2617,6 @@ function updateBoard(){
     .textContent=
     jumlahNetron;
 
-
-    /*
-       Pasangan netral sekarang
-       direpresentasikan sebagai netron.
-    */
 
     document
     .getElementById(
@@ -2628,10 +2655,6 @@ function hitungNilaiPapan(){
         p.type==="elektron"
     ).length;
 
-
-    /*
-       Netron bernilai 0.
-    */
 
     return proton-elektron;
 
@@ -2675,6 +2698,10 @@ function cekJawaban(){
     hitungNilaiPapan();
 
 
+    /* =====================================================
+       JAWABAN BENAR
+    ===================================================== */
+
     if(
         nilaiPapan===jawabanBenar &&
         jawaban===jawabanBenar
@@ -2685,6 +2712,13 @@ function cekJawaban(){
         skor+=10;
 
         gameSelesai=true;
+
+
+        /*
+           Suara pelafalan BENAR
+        */
+
+        suaraBenar();
 
 
         setStatus(
@@ -2712,7 +2746,19 @@ function cekJawaban(){
 
     }
 
+
+    /* =====================================================
+       JAWABAN SALAH
+    ===================================================== */
+
     else{
+
+        /*
+           Suara pelafalan SALAH
+        */
+
+        suaraSalah();
+
 
         setStatus(
 
@@ -2941,3 +2987,4 @@ updateBoard();
 
 </body>
 </html>
+```
