@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 
@@ -85,11 +86,7 @@ body{
 
 .team span{
     background:rgba(255,255,255,.14);
-
-    border:
-    1px solid
-    rgba(255,255,255,.18);
-
+    border:1px solid rgba(255,255,255,.18);
     padding:6px 12px;
     border-radius:20px;
     font-size:13px;
@@ -114,8 +111,7 @@ body{
     text-align:center;
 
     box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
+    0 3px 10px rgba(0,0,0,.08);
 }
 
 .info strong{
@@ -136,8 +132,7 @@ body{
     margin-bottom:15px;
 
     box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
+    0 3px 10px rgba(0,0,0,.08);
 }
 
 .level-buttons{
@@ -178,6 +173,7 @@ body{
     border-radius:10px;
     padding:14px;
     margin-bottom:15px;
+
     line-height:1.6;
 }
 
@@ -198,8 +194,7 @@ body{
     text-align:center;
 
     box-shadow:
-    0 2px 6px
-    rgba(0,0,0,.08);
+    0 2px 6px rgba(0,0,0,.08);
 
     margin-bottom:8px;
 }
@@ -247,8 +242,7 @@ body{
     text-align:center;
 
     box-shadow:
-    0 2px 5px
-    rgba(0,0,0,.07);
+    0 2px 5px rgba(0,0,0,.07);
 }
 
 .source-label{
@@ -290,8 +284,7 @@ body{
     margin:auto;
 
     box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.25);
+    0 4px 10px rgba(0,0,0,.25);
 }
 
 
@@ -327,8 +320,7 @@ body{
     margin:auto;
 
     box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.25);
+    0 4px 10px rgba(0,0,0,.25);
 }
 
 
@@ -357,8 +349,7 @@ body{
     user-select:none;
 
     box-shadow:
-    0 4px 10px
-    rgba(0,0,0,.30);
+    0 4px 10px rgba(0,0,0,.30);
 }
 
 .netron-symbol{
@@ -369,11 +360,9 @@ body{
 
 .netron-board{
 
-    position:absolute;
-
     cursor:pointer;
 
-    z-index:15;
+    z-index:20;
 
     transition:
     transform .15s,
@@ -381,12 +370,12 @@ body{
 }
 
 .netron-board:hover{
-    transform:scale(1.1);
+    transform:scale(1.08);
 }
 
 
 /* =========================================================
-   YIN-YANG NETRON
+   YIN-YANG
 ========================================================= */
 
 .netron-symbol .yy-black,
@@ -402,7 +391,6 @@ body{
 
     background:#111827;
 }
-
 
 .netron-symbol .yy-top,
 .netron-board .yy-top{
@@ -420,7 +408,6 @@ body{
     border-radius:50%;
 }
 
-
 .netron-symbol .yy-bottom,
 .netron-board .yy-bottom{
 
@@ -436,7 +423,6 @@ body{
 
     border-radius:50%;
 }
-
 
 .netron-symbol .yy-zero,
 .netron-board .yy-zero{
@@ -472,7 +458,7 @@ body{
 
 
 /* =========================================================
-   PAPAN
+   BOARD
 ========================================================= */
 
 .board-wrapper{
@@ -506,21 +492,6 @@ body{
 
     overflow:hidden;
 
-    background:
-
-    linear-gradient(
-        rgba(107,114,128,.12) 1px,
-        transparent 1px
-    ),
-
-    linear-gradient(
-        90deg,
-        rgba(107,114,128,.12) 1px,
-        transparent 1px
-    );
-
-    background-size:25px 25px;
-
     background-color:white;
 
     border:
@@ -530,16 +501,66 @@ body{
     border-radius:18px;
 
     box-shadow:
-    inset
-    0 0 20px
-    rgba(0,0,0,.05);
+    inset 0 0 20px rgba(0,0,0,.05);
+
+    /*
+       GRID PENAMPANG
+    */
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(10,1fr);
+
+    grid-template-rows:
+    repeat(6,1fr);
+
+    gap:0;
+
+    padding:8px;
 }
 
-.board.drag-over{
 
-    background-color:#f3f4f6;
+/* =========================================================
+   SLOT GRID
+========================================================= */
 
-    border-color:#000;
+.grid-slot{
+
+    position:relative;
+
+    border:
+    1px solid
+    rgba(107,114,128,.25);
+
+    background:
+    rgba(243,244,246,.45);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:
+    background .15s,
+    border-color .15s;
+}
+
+.grid-slot:nth-child(even){
+    background:
+    rgba(249,250,251,.8);
+}
+
+.grid-slot.slot-hover{
+    background:#dbeafe;
+
+    border-color:#2563eb;
+}
+
+.grid-slot.terisi{
+    background:
+    rgba(229,231,235,.35);
 }
 
 
@@ -563,17 +584,14 @@ body{
 
     font-weight:bold;
 
-    position:absolute;
-
     cursor:pointer;
 
     user-select:none;
 
     box-shadow:
-    0 3px 8px
-    rgba(0,0,0,.25);
+    0 3px 8px rgba(0,0,0,.25);
 
-    z-index:20;
+    z-index:30;
 
     transition:
     transform .12s,
@@ -581,7 +599,7 @@ body{
 }
 
 .particle:hover{
-    transform:scale(1.12);
+    transform:scale(1.10);
 }
 
 .particle.proton{
@@ -724,8 +742,7 @@ button{
     border-radius:15px;
 
     box-shadow:
-    0 3px 10px
-    rgba(0,0,0,.08);
+    0 3px 10px rgba(0,0,0,.08);
 
     text-align:center;
 }
@@ -818,32 +835,6 @@ button{
    ANIMASI
 ========================================================= */
 
-@keyframes munculNetron{
-
-    0%{
-        transform:scale(.2);
-        opacity:0;
-    }
-
-    60%{
-        transform:scale(1.2);
-        opacity:1;
-    }
-
-    100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-}
-
-.netron-board.animasi-muncul{
-
-    animation:
-    munculNetron .35s ease-out;
-}
-
-
 @keyframes munculPartikel{
 
     0%{
@@ -863,7 +854,8 @@ button{
 
 }
 
-.particle.animasi-muncul{
+.particle.animasi-muncul,
+.netron-board.animasi-muncul{
 
     animation:
     munculPartikel .35s ease-out;
@@ -893,6 +885,37 @@ button{
     .board{
 
         height:500px;
+
+        grid-template-columns:
+        repeat(5,1fr);
+
+        grid-template-rows:
+        repeat(10,1fr);
+
+    }
+
+    .particle{
+
+        width:36px;
+        height:36px;
+
+        font-size:23px;
+
+    }
+
+    .netron-board{
+
+        width:54px;
+        height:54px;
+
+    }
+
+    .netron-board .yy-zero{
+
+        width:22px;
+        height:22px;
+
+        font-size:16px;
 
     }
 
@@ -1053,7 +1076,13 @@ PETUNJUK
 </li>
 
 <li>
-Seret proton, elektron, atau netron ke papan.
+Seret proton, elektron, atau netron ke salah satu
+kotak pada papan.
+</li>
+
+<li>
+Setiap partikel akan otomatis menempati satu
+kotak sehingga posisinya tetap rapi.
 </li>
 
 <li>
@@ -1069,11 +1098,6 @@ menjadi satu proton dan satu elektron.
 <li>
 Netron yang berasal dari sumber maupun
 netron hasil penggabungan dapat dipisahkan.
-</li>
-
-<li>
-Setelah dipisahkan, proton dan elektron
-dapat digabungkan kembali menjadi netron.
 </li>
 
 <li>
@@ -1112,13 +1136,11 @@ SUMBER
 ===================================================== -->
 
 <div class="source-title">
- ➕ Pilih Partikel
+➕ Pilih Partikel
 </div>
 
 <div class="sources">
 
-
-<!-- PROTON -->
 
 <div class="source">
 
@@ -1143,8 +1165,6 @@ Nilai = +1
 </div>
 
 
-<!-- ELEKTRON -->
-
 <div class="source">
 
 <div class="source-label">
@@ -1167,8 +1187,6 @@ Nilai = −1
 
 </div>
 
-
-<!-- NETRON -->
 
 <div class="source">
 
@@ -1368,7 +1386,7 @@ STATUS
 id="status"
 class="status info">
 
-Seret proton, elektron, atau netron ke papan.
+Seret proton, elektron, atau netron ke salah satu kotak pada papan.
 
 </div>
 
@@ -1469,10 +1487,6 @@ volume=.08
 }
 
 
-/* =========================================================
-   SUARA EFEK
-========================================================= */
-
 function suaraDrag(){
 
     playTone(
@@ -1564,15 +1578,10 @@ function suaraPisah(){
 
 
 /* =========================================================
-   SUARA PELAFALAN BENAR / SALAH
+   SUARA PELAFALAN
 ========================================================= */
 
 function suaraUcapan(teks){
-
-    /*
-       Pastikan browser mendukung
-       Web Speech API.
-    */
 
     if(
         !("speechSynthesis" in window)
@@ -1580,52 +1589,18 @@ function suaraUcapan(teks){
         return;
     }
 
-
-    /*
-       Hentikan ucapan sebelumnya
-       agar tidak bertumpuk.
-    */
-
     window.speechSynthesis.cancel();
 
-
     const ucapan=
-    new SpeechSynthesisUtterance(
-        teks
-    );
-
-
-    /*
-       Bahasa Indonesia
-    */
+    new SpeechSynthesisUtterance(teks);
 
     ucapan.lang="id-ID";
 
-
-    /*
-       Kecepatan bicara
-    */
-
-    ucapan.rate=0.9;
-
-
-    /*
-       Tinggi rendah suara
-    */
+    ucapan.rate=.9;
 
     ucapan.pitch=1.05;
 
-
-    /*
-       Volume maksimum
-    */
-
     ucapan.volume=1;
-
-
-    /*
-       Jalankan pelafalan
-    */
 
     window.speechSynthesis.speak(
         ucapan
@@ -1633,10 +1608,6 @@ function suaraUcapan(teks){
 
 }
 
-
-/* =========================================================
-   SUARA BENAR
-========================================================= */
 
 function suaraBenar(){
 
@@ -1646,10 +1617,6 @@ function suaraBenar(){
 
 }
 
-
-/* =========================================================
-   SUARA SALAH
-========================================================= */
 
 function suaraSalah(){
 
@@ -1689,17 +1656,19 @@ let dragData=null;
 let gameSelesai=false;
 
 
-const levelMax={
+/*
+   GRID BOARD
 
-    1:5,
+   Desktop:
+   10 kolom × 6 baris = 60 slot
 
-    2:10,
+   Mobile:
+   5 kolom × 10 baris = 50 slot
+*/
 
-    3:15,
+let gridCols=10;
 
-    4:20
-
-};
+let gridRows=6;
 
 
 /* =========================================================
@@ -1819,6 +1788,199 @@ function tampilkanSoal(){
 
 
 /* =========================================================
+   LEVEL MAX
+========================================================= */
+
+const levelMax={
+
+    1:5,
+
+    2:10,
+
+    3:15,
+
+    4:20
+
+};
+
+
+/* =========================================================
+   MEMBUAT GRID
+========================================================= */
+
+function buatGrid(){
+
+    const board=
+    document.getElementById("board");
+
+    board.innerHTML="";
+
+
+    /*
+       Deteksi ukuran layar
+    */
+
+    if(window.innerWidth<=700){
+
+        gridCols=5;
+
+        gridRows=10;
+
+    }
+
+    else{
+
+        gridCols=10;
+
+        gridRows=6;
+
+    }
+
+
+    /*
+       Buat seluruh slot
+    */
+
+    const total=
+    gridCols*gridRows;
+
+
+    for(
+        let i=0;
+        i<total;
+        i++
+    ){
+
+        const slot=
+        document.createElement("div");
+
+        slot.className="grid-slot";
+
+        slot.dataset.index=i;
+
+        slot.addEventListener(
+            "dragover",
+            function(event){
+
+                event.preventDefault();
+
+                this.classList.add(
+                    "slot-hover"
+                );
+
+            }
+        );
+
+
+        slot.addEventListener(
+            "dragleave",
+            function(){
+
+                this.classList.remove(
+                    "slot-hover"
+                );
+
+            }
+        );
+
+
+        slot.addEventListener(
+            "drop",
+            function(event){
+
+                event.preventDefault();
+
+                this.classList.remove(
+                    "slot-hover"
+                );
+
+                dropKeSlot(
+                    event,
+                    Number(
+                        this.dataset.index
+                    )
+                );
+
+            }
+        );
+
+
+        board.appendChild(slot);
+
+    }
+
+}
+
+
+/* =========================================================
+   MENDAPATKAN SLOT KOSONG
+========================================================= */
+
+function slotTerisi(index){
+
+    return partikel.some(
+        p=>
+        p.slot===index
+    );
+
+}
+
+
+function cariSlotKosong(){
+
+    const total=
+    gridCols*gridRows;
+
+
+    for(
+        let i=0;
+        i<total;
+        i++
+    ){
+
+        if(
+            !slotTerisi(i)
+        ){
+
+            return i;
+
+        }
+
+    }
+
+
+    return -1;
+
+}
+
+
+/* =========================================================
+   KOORDINAT SLOT
+========================================================= */
+
+function posisiSlot(index){
+
+    const row=
+    Math.floor(
+        index/gridCols
+    );
+
+    const col=
+    index%gridCols;
+
+
+    return {
+
+        row:row,
+
+        col:col
+
+    };
+
+}
+
+
+/* =========================================================
    DRAG
 ========================================================= */
 
@@ -1888,66 +2050,53 @@ function dragSelesai(){
 
 
 /* =========================================================
-   DROP
+   DRAG KE BOARD
 ========================================================= */
 
 function allowBoardDrop(event){
 
     event.preventDefault();
 
-    document
-    .getElementById("board")
-    .classList.add("drag-over");
-
 }
 
 
-function dropBoard(event){
+/* =========================================================
+   DROP KE SLOT
+========================================================= */
 
-    event.preventDefault();
-
-    document
-    .getElementById("board")
-    .classList.remove("drag-over");
-
+function dropKeSlot(
+event,
+slotIndex
+){
 
     if(!dragData){
         return;
     }
 
 
-    const board=
-    document.getElementById("board");
+    /*
+       Jika slot sudah terisi
+    */
 
-    const rect=
-    board.getBoundingClientRect();
+    if(
+        slotTerisi(slotIndex)
+    ){
 
+        setStatus(
+            "Kotak tersebut sudah terisi. Pilih kotak yang kosong.",
+            "error"
+        );
 
-    let x=
-    event.clientX-
-    rect.left-
-    22;
+        dragData=null;
 
+        return;
 
-    let y=
-    event.clientY-
-    rect.top-
-    22;
-
-
-    x=clamp(
-        x,
-        3,
-        board.clientWidth-47
-    );
+    }
 
 
-    y=clamp(
-        y,
-        3,
-        board.clientHeight-47
-    );
-
+    /*
+       Tambahkan partikel
+    */
 
     if(
         dragData.type==="particle"
@@ -1955,8 +2104,7 @@ function dropBoard(event){
 
         buatPartikel(
             dragData.particleType,
-            x,
-            y
+            slotIndex
         );
 
         suaraDrag();
@@ -1970,7 +2118,8 @@ function dropBoard(event){
 
         tulisLog(
             "> "+nama+
-            " ditambahkan."
+            " ditempatkan pada kotak "+
+            (slotIndex+1)+"."
         );
 
     }
@@ -1981,8 +2130,7 @@ function dropBoard(event){
     ){
 
         buatNetron(
-            x,
-            y,
+            slotIndex,
             "langsung"
         );
 
@@ -1990,7 +2138,8 @@ function dropBoard(event){
 
 
         tulisLog(
-            "> Netron Yin-Yang (0) ditambahkan."
+            "> Netron Yin-Yang (0) ditempatkan pada kotak "+
+            (slotIndex+1)+"."
         );
 
     }
@@ -2003,14 +2152,54 @@ function dropBoard(event){
 }
 
 
+/*
+   Fallback drop pada board.
+   Jika browser menjatuhkan partikel di area
+   yang bukan slot, masukkan ke slot kosong.
+*/
+
+function dropBoard(event){
+
+    event.preventDefault();
+
+    if(!dragData){
+        return;
+    }
+
+
+    let slot=
+    cariSlotKosong();
+
+
+    if(slot===-1){
+
+        setStatus(
+            "Papan penuh. Tidak ada kotak kosong.",
+            "error"
+        );
+
+        dragData=null;
+
+        return;
+
+    }
+
+
+    dropKeSlot(
+        event,
+        slot
+    );
+
+}
+
+
 /* =========================================================
    BUAT PARTIKEL
 ========================================================= */
 
 function buatPartikel(
 type,
-x,
-y
+slot
 ){
 
     partikel.push({
@@ -2019,9 +2208,7 @@ y
 
         type:type,
 
-        x:x,
-
-        y:y
+        slot:slot
 
     });
 
@@ -2033,8 +2220,7 @@ y
 ========================================================= */
 
 function buatNetron(
-x,
-y,
+slot,
 asal="langsung"
 ){
 
@@ -2044,13 +2230,77 @@ asal="langsung"
 
         type:"netron",
 
-        x:x,
-
-        y:y,
+        slot:slot,
 
         asal:asal
 
     });
+
+}
+
+
+/* =========================================================
+   SLOT TERDEKAT
+========================================================= */
+
+function cariSlotTerdekat(
+slotAwal
+){
+
+    /*
+       Cari slot kosong terdekat
+       berdasarkan jarak grid.
+    */
+
+    const posisi=
+    posisiSlot(slotAwal);
+
+    let terbaik=-1;
+
+    let jarakTerbaik=Infinity;
+
+
+    for(
+        let i=0;
+        i<gridCols*gridRows;
+        i++
+    ){
+
+        if(
+            slotTerisi(i)
+        ){
+            continue;
+        }
+
+
+        const p=
+        posisiSlot(i);
+
+
+        const jarak=
+        Math.abs(
+            p.row-posisi.row
+        )
+        +
+        Math.abs(
+            p.col-posisi.col
+        );
+
+
+        if(
+            jarak<jarakTerbaik
+        ){
+
+            jarakTerbaik=jarak;
+
+            terbaik=i;
+
+        }
+
+    }
+
+
+    return terbaik;
 
 }
 
@@ -2094,10 +2344,6 @@ function bentukPasanganNetral(){
     }
 
 
-    const board=
-    document.getElementById("board");
-
-
     let pasanganGabung=[];
 
 
@@ -2117,6 +2363,101 @@ function bentukPasanganNetral(){
 
     }
 
+
+    /*
+       Simpan posisi proton
+       sebelum dihapus.
+    */
+
+    let slotNetron=[];
+
+
+    pasanganGabung.forEach(
+        pasangan=>{
+
+            const p=
+            posisiSlot(
+                pasangan.proton.slot
+            );
+
+            const e=
+            posisiSlot(
+                pasangan.elektron.slot
+            );
+
+
+            /*
+               Pilih posisi tengah
+               secara grid.
+            */
+
+            let row=
+            Math.round(
+                (
+                    p.row+
+                    e.row
+                )/2
+            );
+
+            let col=
+            Math.round(
+                (
+                    p.col+
+                    e.col
+                )/2
+            );
+
+
+            row=clamp(
+                row,
+                0,
+                gridRows-1
+            );
+
+            col=clamp(
+                col,
+                0,
+                gridCols-1
+            );
+
+
+            let target=
+            row*gridCols+
+            col;
+
+
+            /*
+               Jika target sudah terisi,
+               cari slot kosong terdekat.
+            */
+
+            if(
+                slotTerisi(target)
+                &&
+                target!==
+                pasangan.proton.slot
+                &&
+                target!==
+                pasangan.elektron.slot
+            ){
+
+                target=
+                cariSlotTerdekat(
+                    target
+                );
+
+            }
+
+
+            slotNetron.push(target);
+
+        }
+    );
+
+
+    /*
+       Hapus proton dan elektron
+    */
 
     let idYangDihapus=[];
 
@@ -2143,40 +2484,40 @@ function bentukPasanganNetral(){
     );
 
 
-    pasanganGabung.forEach(
-        pasangan=>{
+    /*
+       Buat netron
+    */
 
-            let x=
-            (
-                pasangan.proton.x+
-                pasangan.elektron.x
-            )/2;
+    slotNetron.forEach(
+        slot=>{
 
+            /*
+               Pastikan slot benar-benar kosong
+            */
 
-            let y=
-            (
-                pasangan.proton.y+
-                pasangan.elektron.y
-            )/2;
+            let target=slot;
 
 
-            buatNetron(
+            if(
+                slotTerisi(target)
+            ){
 
-                clamp(
-                    x,
-                    5,
-                    board.clientWidth-75
-                ),
+                target=
+                cariSlotTerdekat(
+                    target
+                );
 
-                clamp(
-                    y,
-                    5,
-                    board.clientHeight-75
-                ),
+            }
 
-                "gabungan"
 
-            );
+            if(target!==-1){
+
+                buatNetron(
+                    target,
+                    "gabungan"
+                );
+
+            }
 
         }
     );
@@ -2238,25 +2579,13 @@ function pisahkanNetron(){
     }
 
 
-    const board=
-    document.getElementById("board");
-
-
     let jumlah=
     netron.length;
 
 
-    let posisiNetron=
-    netron.map(
-        n=>({
-
-            x:n.x,
-
-            y:n.y
-
-        })
-    );
-
+    /*
+       Hapus semua netron
+    */
 
     partikel=
     partikel.filter(
@@ -2265,45 +2594,154 @@ function pisahkanNetron(){
     );
 
 
-    posisiNetron.forEach(
+    /*
+       Setiap netron menghasilkan
+       proton dan elektron.
+
+       Kita cari dua slot yang berdekatan.
+    */
+
+    netron.forEach(
         n=>{
 
-            buatPartikel(
-
-                "proton",
-
-                clamp(
-                    n.x-28,
-                    3,
-                    board.clientWidth-47
-                ),
-
-                clamp(
-                    n.y,
-                    3,
-                    board.clientHeight-47
-                )
-
-            );
+            let pos=
+            posisiSlot(n.slot);
 
 
-            buatPartikel(
+            let kandidatProton=-1;
 
-                "elektron",
+            let kandidatElektron=-1;
 
-                clamp(
-                    n.x+28,
-                    3,
-                    board.clientWidth-47
-                ),
 
-                clamp(
-                    n.y,
-                    3,
-                    board.clientHeight-47
-                )
+            /*
+               Prioritas:
+               kiri + kanan
+            */
 
-            );
+            if(
+                pos.col>0 &&
+                pos.col<gridCols-1
+            ){
+
+                let kiri=
+                pos.row*gridCols+
+                (pos.col-1);
+
+                let kanan=
+                pos.row*gridCols+
+                (pos.col+1);
+
+
+                if(
+                    !slotTerisi(kiri) &&
+                    !slotTerisi(kanan)
+                ){
+
+                    kandidatProton=kiri;
+
+                    kandidatElektron=kanan;
+
+                }
+
+            }
+
+
+            /*
+               Jika tidak bisa horizontal,
+               gunakan atas + bawah.
+            */
+
+            if(
+                kandidatProton===-1 &&
+                pos.row>0 &&
+                pos.row<gridRows-1
+            ){
+
+                let atas=
+                (pos.row-1)*gridCols+
+                pos.col;
+
+                let bawah=
+                (pos.row+1)*gridCols+
+                pos.col;
+
+
+                if(
+                    !slotTerisi(atas) &&
+                    !slotTerisi(bawah)
+                ){
+
+                    kandidatProton=atas;
+
+                    kandidatElektron=bawah;
+
+                }
+
+            }
+
+
+            /*
+               Jika tidak ditemukan pasangan
+               bersebelahan, gunakan dua slot
+               kosong terdekat.
+            */
+
+            if(
+                kandidatProton===-1
+            ){
+
+                kandidatProton=
+                cariSlotKosong();
+
+
+                if(
+                    kandidatProton!==-1
+                ){
+
+                    /*
+                       Cari slot kedua
+                    */
+
+                    buatPartikel(
+                        "proton",
+                        kandidatProton
+                    );
+
+
+                    kandidatElektron=
+                    cariSlotTerdekat(
+                        kandidatProton
+                    );
+
+
+                    if(
+                        kandidatElektron!==-1
+                    ){
+
+                        buatPartikel(
+                            "elektron",
+                            kandidatElektron
+                        );
+
+                    }
+
+                }
+
+            }
+
+            else{
+
+                buatPartikel(
+                    "proton",
+                    kandidatProton
+                );
+
+                buatPartikel(
+                    "elektron",
+                    kandidatElektron
+                );
+
+            }
 
         }
     );
@@ -2424,133 +2862,171 @@ function hapusNetron(id){
 
 
 /* =========================================================
-   RENDER PAPAN
+   RENDER BOARD
 ========================================================= */
 
 function renderBoard(){
+
+    /*
+       Jangan menghapus grid.
+       Hapus hanya partikel lama.
+    */
 
     const board=
     document.getElementById("board");
 
 
-    board.innerHTML="";
-
-
-    partikel
-    .filter(
-        p=>
-        p.type==="netron"
+    board
+    .querySelectorAll(
+        ".particle,.netron-board"
     )
     .forEach(
-        n=>{
-
-            let div=
-            document.createElement("div");
-
-
-            div.className=
-            "netron-board";
+        el=>
+        el.remove()
+    );
 
 
-            div.style.left=
-            n.x+"px";
+    /*
+       Tandai slot yang terisi
+    */
 
+    board
+    .querySelectorAll(
+        ".grid-slot"
+    )
+    .forEach(
+        slot=>{
 
-            div.style.top=
-            n.y+"px";
-
-
-            div.innerHTML=`
-
-                <div class="yy-black"></div>
-
-                <div class="yy-top"></div>
-
-                <div class="yy-bottom"></div>
-
-                <div class="yy-zero">
-                    0
-                </div>
-
-            `;
-
-
-            div.title=
-            "Netron (0) — klik untuk menghapus";
-
-
-            div.addEventListener(
-                "click",
-                function(event){
-
-                    event.stopPropagation();
-
-                    hapusNetron(n.id);
-
-                }
+            slot.classList.remove(
+                "terisi"
             );
-
-
-            board.appendChild(div);
 
         }
     );
 
 
+    /*
+       Render partikel
+    */
+
     partikel.forEach(
         p=>{
 
-            if(
-                p.type==="netron"
-            ){
+            const slot=
+            board.querySelector(
+                `.grid-slot[data-index="${p.slot}"]`
+            );
+
+
+            if(!slot){
                 return;
             }
+
+
+            slot.classList.add(
+                "terisi"
+            );
 
 
             let div=
             document.createElement("div");
 
 
-            div.className=
-            "particle "+
-            p.type;
+            /*
+               NETRON
+            */
+
+            if(
+                p.type==="netron"
+            ){
+
+                div.className=
+                "netron-board animasi-muncul";
 
 
-            div.style.left=
-            p.x+"px";
+                div.innerHTML=`
+
+                    <div class="yy-black"></div>
+
+                    <div class="yy-top"></div>
+
+                    <div class="yy-bottom"></div>
+
+                    <div class="yy-zero">
+                        0
+                    </div>
+
+                `;
 
 
-            div.style.top=
-            p.y+"px";
+                div.title=
+                "Netron (0) — klik untuk menghapus";
 
 
-            div.textContent=
-            p.type==="proton"
-            ? "+"
-            : "−";
+                div.addEventListener(
+                    "click",
+                    function(event){
+
+                        event.stopPropagation();
+
+                        hapusNetron(
+                            p.id
+                        );
+
+                    }
+                );
+
+            }
 
 
-            div.title=
-            p.type==="proton"
-            ? "Klik untuk menghapus proton"
-            : "Klik untuk menghapus elektron";
+            /*
+               PROTON / ELEKTRON
+            */
+
+            else{
+
+                div.className=
+                "particle "+
+                p.type+
+                " animasi-muncul";
 
 
-            div.addEventListener(
-                "click",
-                function(event){
+                div.textContent=
+                p.type==="proton"
+                ? "+"
+                : "−";
 
-                    event.stopPropagation();
 
-                    hapusPartikel(
-                        p.id
-                    );
+                div.title=
+                p.type==="proton"
+                ? "Klik untuk menghapus proton"
+                : "Klik untuk menghapus elektron";
 
-                }
+
+                div.addEventListener(
+                    "click",
+                    function(event){
+
+                        event.stopPropagation();
+
+                        hapusPartikel(
+                            p.id
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /*
+               Partikel ditempatkan
+               di dalam slot.
+            */
+
+            slot.appendChild(
+                div
             );
-
-
-            board.appendChild(div);
 
         }
     );
@@ -2559,7 +3035,7 @@ function renderBoard(){
 
 
 /* =========================================================
-   UPDATE PAPAN
+   UPDATE BOARD
 ========================================================= */
 
 function updateBoard(){
@@ -2636,7 +3112,7 @@ function updateBoard(){
 
 
 /* =========================================================
-   NILAI PAPAN
+   HITUNG NILAI
 ========================================================= */
 
 function hitungNilaiPapan(){
@@ -2697,10 +3173,6 @@ function cekJawaban(){
     hitungNilaiPapan();
 
 
-    /* =====================================================
-       JAWABAN BENAR
-    ===================================================== */
-
     if(
         nilaiPapan===jawabanBenar &&
         jawaban===jawabanBenar
@@ -2712,10 +3184,6 @@ function cekJawaban(){
 
         gameSelesai=true;
 
-
-        /*
-           Suara pelafalan BENAR
-        */
 
         suaraBenar();
 
@@ -2745,16 +3213,7 @@ function cekJawaban(){
 
     }
 
-
-    /* =====================================================
-       JAWABAN SALAH
-    ===================================================== */
-
     else{
-
-        /*
-           Suara pelafalan SALAH
-        */
 
         suaraSalah();
 
@@ -2829,6 +3288,13 @@ tampilkanStatus=true
     partikel=[];
 
     dragData=null;
+
+
+    /*
+       Pastikan grid dibuat kembali
+    */
+
+    buatGrid();
 
 
     updateBoard();
@@ -2975,8 +3441,98 @@ max
 
 
 /* =========================================================
+   RESPONSIVE GRID
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        /*
+           Jangan mengubah isi partikel.
+           Hanya bangun ulang grid ketika
+           ukuran layar berubah.
+        */
+
+        const oldCols=gridCols;
+
+        const newCols=
+        window.innerWidth<=700
+        ? 5
+        : 10;
+
+
+        if(
+            oldCols!==newCols
+        ){
+
+            /*
+               Simpan posisi lama
+               berdasarkan urutan partikel.
+            */
+
+            let data=
+            partikel.map(
+                p=>p.type
+            );
+
+
+            buatGrid();
+
+
+            partikel=[];
+
+
+            data.forEach(
+                type=>{
+
+                    let slot=
+                    cariSlotKosong();
+
+
+                    if(
+                        slot!==-1
+                    ){
+
+                        if(
+                            type==="netron"
+                        ){
+
+                            buatNetron(
+                                slot,
+                                "responsive"
+                            );
+
+                        }
+
+                        else{
+
+                            buatPartikel(
+                                type,
+                                slot
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            updateBoard();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
    MULAI
 ========================================================= */
+
+buatGrid();
 
 buatSoal();
 
@@ -2985,4 +3541,6 @@ updateBoard();
 </script>
 
 </body>
+
 </html>
+```
